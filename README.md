@@ -104,7 +104,9 @@ Used to search user's id by name.
 # Configuration
 
 # TODO
-- [ ] captcha
-- [ ] ip logging
-- [ ] lookup throttling
-- [ ] e-mail confirmation
+- [ ] Captcha
+- [ ] IP logging
+- [ ] Requests throttling
+- [ ] E-mail confirmation
+- [ ] Changing password
+- [ ] Two factor authentication
