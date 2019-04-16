@@ -1,0 +1,42 @@
+{
+  "name": "auth-microservice",
+  "version": "0.1.0",
+  "description": "Advanced authorization microservice.",
+  "keywords": [
+    "microservice",
+    "authorization",
+    "auth"
+  ],
+  "homepage": "https://github.com/SzymonLisowiec/auth-microservice",
+	"bugs": {
+		"url": "https://github.com/SzymonLisowiec/auth-microservice/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/SzymonLisowiec/auth-microservice.git"
+	},
+  "scripts": {
+    "start": "node index"
+  },
+  "main": "index.js",
+  "author": {
+		"name": "Szymon Lisowiec",
+		"url": "https://kysune.me"
+	},
+  "license": "MIT",
+  "dependencies": {
+    "argon2": "^0.21.0",
+    "bcrypt": "^3.0.6",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "mongoose": "^5.5.1",
+    "normalize-email": "^1.1.1",
+    "passport": "^0.4.0",
+    "passport-facebook": "^3.0.0",
+    "passport-local": "^1.0.0",
+    "validatorjs": "^3.15.1",
+    "winston": "^3.2.1"
+  }
+}
