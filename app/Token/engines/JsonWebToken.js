@@ -38,7 +38,9 @@ class JWTToken {
     
     return {
       accessToken: JWT.sign(payload, this.key),
+      tokenType: 'bearer',
       expiresAt: payload.exp,
+      expiresIn: this.ttl,
     };
   }
 
@@ -51,7 +53,9 @@ class JWTToken {
 
     return {
       accessToken: JWT.sign(payload, this.key),
+      tokenType: 'bearer',
       expiresAt: payload.exp,
+      expiresIn: this.ttl,
     };
   }
 

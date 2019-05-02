@@ -3,8 +3,8 @@ const ValidatorError = require('../ValidatorError');
 
 class Controller {
 
-  constructor() {
-
+  constructor(app) {
+    this.app = app;
   }
 
   validate(input, rules, customErrorMessages) {

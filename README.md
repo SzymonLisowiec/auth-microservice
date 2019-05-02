@@ -14,8 +14,24 @@ Advanced authorization microservice.
 
 # Getting Started
 
-```cmd
-git clone https://github.com/SzymonLisowiec/auth-microservice
+... in future
+
+Current state example
+```javascript
+const AuthMicroservice = require('..');
+const { Strategies } = AuthMicroservice;
+    
+AuthMicroservice.useStrategy(Strategies.Facebook({
+  clientID: '',
+  clientSecret: '',
+}));
+
+AuthMicroservice.on('confirmation:new', (confirmation/*, user (TODO)*/) => {
+  // send e-mail with token
+});
+
+AuthMicroservice.run();
+
 ```
 
 # Endpoints
@@ -104,9 +120,9 @@ Used to search user's id by name.
 # Configuration
 
 # TODO
+- [ ] E-mail confirmation // confirmation system in progress
+- [ ] Changing password
 - [ ] Captcha
 - [ ] IP logging
 - [ ] Requests throttling
-- [ ] E-mail confirmation
-- [ ] Changing password
 - [ ] Two factor authentication

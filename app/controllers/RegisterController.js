@@ -42,7 +42,7 @@ class RegisterController extends Controller {
     }
 
     try {
-      user = await User.register(userData, user);
+      user = await User.register(userData, user, false, request);
     } catch(error) {
       return response.status(400).json({ error: error.message });
     }

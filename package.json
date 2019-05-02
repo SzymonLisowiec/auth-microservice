@@ -8,21 +8,21 @@
     "auth"
   ],
   "homepage": "https://github.com/SzymonLisowiec/auth-microservice",
-	"bugs": {
-		"url": "https://github.com/SzymonLisowiec/auth-microservice/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/SzymonLisowiec/auth-microservice.git"
-	},
+  "bugs": {
+    "url": "https://github.com/SzymonLisowiec/auth-microservice/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SzymonLisowiec/auth-microservice.git"
+  },
   "scripts": {
     "start": "node index"
   },
   "main": "index.js",
   "author": {
-		"name": "Szymon Lisowiec",
-		"url": "https://kysune.me"
-	},
+    "name": "Szymon Lisowiec",
+    "url": "https://kysune.me"
+  },
   "license": "MIT",
   "dependencies": {
     "argon2": "^0.21.0",

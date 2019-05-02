@@ -1,31 +1,36 @@
 const Mongoose = require('mongoose');
 const Express = require('express');
+const Passport = require('passport');
 
 const Log = require('./Log');
 const Config = require('./config');
-const Router = require('./router');
-
-require('./strategies');
+const Router = require('./Router');
+const Events = require('./Events');
+const LocalStrategy = require('./strategies/LocalStrategy');
 
 class App {
   
   constructor() {
-
-    Log.debug('Configuration', JSON.stringify(Config, null, 2));
     
+    this.strategies = [
+      LocalStrategy(),
+    ];
+
     this.server = new Express();
     this.server.use(Express.json());
     this.server.use(Express.urlencoded({ extended: true }));
-    this.server.use(Router);
-
-    this.init();
+    this.server.use((new Router(this)).router);
 
   }
 
-  async init() {
+  async run() {
     
+    this.strategies.forEach(strategy => Passport.use(strategy));
+
     await this.databaseConnect();
     await this.runWebService();
+
+    Events.emit('initialized');
 
   }
 
@@ -38,7 +43,8 @@ class App {
         user: Config.databaseUser,
         pass: Config.databasePassword,
       });
-      Log.info('Database', 'Connected!');
+      Log.info('Database', `Connected to database ${database}`);
+      Events.emit('database:connected');
     } catch(error) {
       Log.error('Database', `Cannot connect to database ${database}`);
       throw error;
@@ -50,6 +56,7 @@ class App {
       try {
         this.server.listen(Config.port, Config.host, () => {
           Log.info('WebService', `Listening on ${Config.host}:${Config.port}...`);
+          Events.emit('webservice:listening');
           resolve();
         });
       } catch(error) {
@@ -59,6 +66,22 @@ class App {
     });
   }
   
+  useStrategy(strategy) {
+    Log.info('Strategies', `Used ${strategy.name} strategy.`);
+    this.strategies.push(strategy);
+  }
+
+  /**
+   * Aliases for methods in Events class.
+   */
+  on(...args) { return Events.on(...args); }
+  once(...args) { return Events.once(...args); }
+  off(...args) { return Events.off(...args); }
+  
 }
 
 module.exports = new App();
+module.exports.Config = Config;
+module.exports.Log = Log;
+module.exports.Events = Events;
+module.exports.Strategies = require('./strategies');

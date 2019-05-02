@@ -9,7 +9,12 @@ module.exports = {
   /**
    * Logging
    */
-  logging: process.env.DEBUG ? 'debug' : 'info',
+  logging: process.env.SILENT ? 'error' : (process.env.DEBUG ? 'debug' : 'info'),
+
+  /**
+   * Internal API key
+   */
+  internalApiKey: 'foobar',
 
   /**
    * Database configuration
@@ -71,22 +76,24 @@ module.exports = {
    * Additional fields
    */
   additionalFields: {
-    birthday: {
-      type: Date,
-      validation: 'required|date',
-    },
+    // birthday: {
+    //   type: Date,
+    //   validation: 'required|date',
+    // },
   },
 
   /**
-   * Strategies
+   * Confirmations
    */
-  strategies: (process.env.STRATEGIES || 'local,facebook').split(',').map(strategy => strategy.trim().toLowerCase()).filter(strategy => /^[a-z0-9\-\_]{1,}$/),
-
-  /**
-   * Settings for Facebook strategy
-   */
-  facebookClientId: process.env.FACEBOOK_CLIENT_ID || null,
-  facebookClientSecret: process.env.FACEBOOK_CLIENT_SECRET || null,
-  facebookScope: (process.env.FACEBOOK_SCOPE || 'public_profile,email').split(','),
+  enableConfirmations: true,
+  confirmationExpireTime: {
+    // in seconds
+    default: 3600,
+    registration: 3600,
+  },
+  confirmationSecretKey: 'foobar',
+  confirmationRefreshDelay: 300, // in seconds
+  requiredRegistrationConfirmationToLogin: true,
+  removeNotConfirmedAccountsIn: 10, // days, 0 to disable
 
 };

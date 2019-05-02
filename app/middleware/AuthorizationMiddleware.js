@@ -9,14 +9,14 @@ module.exports = function(required) {
     if (token && token.userId) {
       request.user = await User.findById(token.userId);
       if (request.user) {
-        Log.debug(`Successful authorization for user ${request.user.id}`);
+        Log.debug('AuthorizationMiddleware', `Successful authorization for user ${request.user.id}`);
         next();
         return;
       }
     }
     
     if (required) {
-      Log.debug(`Failure authorization`);
+      Log.debug('AuthorizationMiddleware', `Failure authorization`);
       return response.status(401).json({
         error: 'Unauthorized',
       });

@@ -2,6 +2,8 @@ const Mongoose = require('mongoose');
 const Log = require('../Log');
 const Config = require('../config');
 const Token = require('../Token');
+const Events = require('../Events');
+const Confirmation = require('./Confirmation');
 const EMailNormalizer = require('normalize-email');
 
 const modelSchemaFields = {
@@ -36,10 +38,11 @@ const modelSchema = new Mongoose.Schema({
 const User = Mongoose.model('User', modelSchema);
 
 User.prototype.getToken = async function(tokenEngine) {
+  Events.emit('user:authenticated', this);
   return Token.sign(this, tokenEngine);
 };
 
-User.register = async function(data, user, returnUserIfExists) {
+User.register = async function(data, user, returnUserIfExists, request) {
   
   data.email = (Config.normalizeEmails ? EMailNormalizer(data.email) : data.email).toLowerCase();
 
@@ -81,6 +84,15 @@ User.register = async function(data, user, returnUserIfExists) {
   }
   
   await user.save();
+  Events.emit('user:registered', user);
+
+  if (Config.enableConfirmations) {
+    const confirmation = await Confirmation.new({
+      userId: user.id,
+      type: 'registration',
+    });
+  }
+
   return user;
 };
 
