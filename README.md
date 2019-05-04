@@ -10,6 +10,7 @@ Advanced authorization microservice.
 - 🤝 Compatible with `passport.js` strategies.
 - 🔒 Supports multiple password hashes. You can change password hash at any time.
 - 📝 Additional registration form fields.
+- ✍ Confirmations system.
 - 📃 [security.txt](https://tools.ietf.org/html/draft-foudil-securitytxt-06) under multiple paths.
 
 # Getting Started
@@ -26,7 +27,7 @@ AuthMicroservice.useStrategy(Strategies.Facebook({
   clientSecret: '',
 }));
 
-AuthMicroservice.on('confirmation:new', (confirmation/*, user (TODO)*/) => {
+AuthMicroservice.on('confirmation:new', ({ confirmation, user }) => {
   // send e-mail with token
 });
 
@@ -120,7 +121,7 @@ Used to search user's id by name.
 # Configuration
 
 # TODO
-- [ ] E-mail confirmation // confirmation system in progress
+- [x] Confirmations system
 - [ ] Changing password
 - [ ] Captcha
 - [ ] IP logging

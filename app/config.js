@@ -94,6 +94,6 @@ module.exports = {
   confirmationSecretKey: 'foobar',
   confirmationRefreshDelay: 300, // in seconds
   requiredRegistrationConfirmationToLogin: true,
-  removeNotConfirmedAccountsIn: 10, // days, 0 to disable
+  removeNotConfirmedUsersIn: 10, // days, 0 to disable
 
 };

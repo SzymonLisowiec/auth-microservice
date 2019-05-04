@@ -4,9 +4,12 @@ const Mongoose = require('mongoose');
 const Crypto = require('crypto');
 const Events = require('../Events');
 
+const User = require('./User');
+
 const confirmationScheme = new Mongoose.Schema({
-  userId: {
+  user: {
     type: Mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
   type: {
@@ -29,19 +32,22 @@ const confirmationScheme = new Mongoose.Schema({
   versionKey: false,
 });
 
-confirmationScheme.index({ userId: 1, type: 1 }, { unique: true });
+confirmationScheme.index({ user: 1, type: 1 }, { unique: true });
 
 const Confirmation = Mongoose.model('Confirmation', confirmationScheme);
 
-Confirmation.new = async function(data) {
+Confirmation.new = async function(user, data) {
   const confirmation = await Confirmation.create({
-    userId: data.userId,
+    user: user.id,
     type: data.type,
-    token: Confirmation.generateToken(data.userId, data.type),
+    token: Confirmation.generateToken(user.id, data.type),
     meta: data.meta || {},
     expiresAt: Confirmation.calculateExpiresAt(data.type),
   });
-  Events.emit('confirmation:new', confirmation);
+  Events.emit('confirmation:new', {
+    user,
+    confirmation,
+  });
   Log.debug('Confirmation', `New confirmation#${confirmation.id}`);
   return confirmation;
 }
@@ -57,20 +63,23 @@ Confirmation.confirm = async function(token) {
   return false;
 }
 
-Confirmation.refresh = async function(userId, type) {
+Confirmation.refresh = async function(user, type) {
 
   const confirmation = await Confirmation.findOne({
-    userId,
+    user,
     token,
   });
 
   if (!confirmation) throw new Error(404);
   if (Date.now() - confirmation.updatedAt.getTime() <= Config.confirmationRefreshDelay) throw new Error(429);
 
-  confirmation.token = Confirmation.generateToken(userId, type);
+  confirmation.token = Confirmation.generateToken(user.id, type);
   confirmation.expiresAt = Confirmation.calculateExpiresAt(type);
   await confirmation.save();
-  Events.emit('confirmation:refreshed', confirmation);
+  Events.emit('confirmation:refreshed', {
+    user,
+    confirmation,
+  });
   Log.debug('Confirmation', `Confirmation#${confirmation.id} refreshed!`);
   return confirmation;
 }
@@ -83,9 +92,9 @@ Confirmation.calculateExpiresAt = function(type) {
   return Date.now() + parseInt(Config.confirmationExpireTime[type] || Config.confirmationExpireTime['default']) * 1000;
 }
 
-Confirmation.isConfirmed = async function(userId, type) {
+Confirmation.isConfirmed = async function(user, type) {
   return !await Confirmation.findOne({
-    userId: userId,
+    user,
     type: type,
   });
 }

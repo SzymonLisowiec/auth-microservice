@@ -8,6 +8,8 @@ const Router = require('./Router');
 const Events = require('./Events');
 const LocalStrategy = require('./strategies/LocalStrategy');
 
+const RemoveNotConfirmedUsersJob = require('./jobs/RemoveNotConfirmedUsersJob');
+
 class App {
   
   constructor() {
@@ -29,6 +31,7 @@ class App {
 
     await this.databaseConnect();
     await this.runWebService();
+    await this.scheduleJobs();
 
     Events.emit('initialized');
 
@@ -64,6 +67,14 @@ class App {
         reject(error);
       }
     });
+  }
+
+  async scheduleJobs() {
+    
+    if (Config.removeNotConfirmedUsersIn > 0) {
+      RemoveNotConfirmedUsersJob.schedule('0 0 0 * * *').start();
+    }
+
   }
   
   useStrategy(strategy) {

@@ -27,6 +27,7 @@
   "dependencies": {
     "argon2": "^0.21.0",
     "bcrypt": "^3.0.6",
+    "cron": "^1.7.1",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",

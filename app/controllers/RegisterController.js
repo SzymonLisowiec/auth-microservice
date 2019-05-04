@@ -1,4 +1,3 @@
-const Mongoose = require('mongoose');
 const Controller = require('./Controller');
 const Config = require('../config');
 const Authentication = require('../models/Authentication');
@@ -54,7 +53,7 @@ class RegisterController extends Controller {
 
       try {
         await Authentication.create({
-          userId: user.id,
+          user,
           provider: 'local',
           identifier: user.email,
           attributes: {

@@ -3,6 +3,7 @@ const Log = require('../Log');
 const Config = require('../config');
 const Token = require('../Token');
 const Events = require('../Events');
+const Authentication = require('./Authentication');
 const Confirmation = require('./Confirmation');
 const EMailNormalizer = require('normalize-email');
 
@@ -87,8 +88,7 @@ User.register = async function(data, user, returnUserIfExists, request) {
   Events.emit('user:registered', user);
 
   if (Config.enableConfirmations) {
-    const confirmation = await Confirmation.new({
-      userId: user.id,
+    const confirmation = await Confirmation.new(user, {
       type: 'registration',
     });
   }
@@ -108,6 +108,13 @@ User.prototype.getNotHiddenFields = function() {
     if (Config.additionalFields[field].hidden) delete user[field];
   }
   return user;
+}
+
+User.prototype.remove = async function() {
+  await this.deleteOne();
+  await Confirmation.deleteMany({ user: this });
+  await Authentication.deleteMany({ user: this });
+  Events.emit('user:removed', this);
 }
 
 module.exports = User;

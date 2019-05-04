@@ -1,5 +1,6 @@
 const Controller = require('./Controller');
 const Config = require('../config');
+const User = require('../models/User');
 const Confirmation = require('../models/Confirmation');
 
 class LoginController extends Controller {
@@ -13,8 +14,12 @@ class LoginController extends Controller {
       type: `required|string`,
     });
 
-    Confirmation.new({
-      userId: input.userId,
+    const user = await User.findById(input.userId);
+    if (!user) {
+      return response.status(404).json({});
+    }
+
+    Confirmation.new(user, {
       type: input.type,
       meta: input.meta
     });
@@ -44,7 +49,7 @@ class LoginController extends Controller {
     });
 
     try {
-      await Confirmation.refresh(request.user.id, input.type);
+      await Confirmation.refresh(request.user, input.type);
     } catch(error) {
       switch (error.message) {
         

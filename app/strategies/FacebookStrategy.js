@@ -36,14 +36,14 @@ module.exports = (options) => {
       }
 
       authentication = await AuthenticationModel.create({
-        userId: user.id,
+        user: user,
         provider: 'facebook',
         identifier: profile.id,
       });
       
     }
     
-    if (!user) user = await User.findById(authentication.userId);
+    if (!user) user = await User.findById(authentication.user);
 
     return done(null, {
       user,

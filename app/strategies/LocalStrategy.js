@@ -22,7 +22,7 @@ module.exports = (options) => {
       if (user) {
         
         authentication = await AuthenticationModel.findOne({
-          userId: user.id,
+          user: user,
           provider: 'local',
         });
 
@@ -46,7 +46,7 @@ module.exports = (options) => {
 
     if (!await passwordHash.verify(authentication.attributes.password, password)) return done(new Error('Wrong credentials'));
     
-    if (!user) user = await User.findById(authentication.userId);
+    if (!user) user = await User.findById(authentication.user);
 
     return done(null, {
       user,
