@@ -16,7 +16,9 @@
     "url": "https://github.com/SzymonLisowiec/auth-microservice.git"
   },
   "scripts": {
-    "start": "node index"
+    "start": "node index",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "main": "index.js",
   "author": {
@@ -38,6 +40,7 @@
     "passport-facebook": "^3.0.0",
     "passport-local": "^1.0.0",
     "validatorjs": "^3.15.1",
+    "vuepress": "^0.14.11",
     "winston": "^3.2.1"
   }
 }

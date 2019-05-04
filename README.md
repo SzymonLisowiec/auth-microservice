@@ -2,7 +2,7 @@
 ****
 
 # 🔑 Auth-Microservice
-Advanced authorization microservice.
+Advanced authentication microservice.
 
 # Features
 - 🔨 Strongly customizable
