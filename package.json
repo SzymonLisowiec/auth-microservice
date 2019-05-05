@@ -1,10 +1,10 @@
 {
   "name": "auth-microservice",
   "version": "0.1.0",
-  "description": "Advanced authorization microservice.",
+  "description": "Advanced authentication microservice.",
   "keywords": [
     "microservice",
-    "authorization",
+    "authentication",
     "auth"
   ],
   "homepage": "https://github.com/SzymonLisowiec/auth-microservice",
