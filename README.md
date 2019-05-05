@@ -1,4 +1,4 @@
-***Still development....***
+***Auth-Microservice is still development and some elements are subject to change. Currently please do not use it on production.***
 ****
 
 <p align="center">
@@ -17,7 +17,7 @@
 Advanced authentication microservice.
 
 #### - [GETTING STARTED](https://auth-microservice.kysune.me/guide/#getting-started)
-#### - [DOCUMENTATION](https://auth-microservice.kysune.me/guide/)
+#### - [DOCUMENTATION](https://auth-microservice.kysune.me/)
 #### - [API](https://auth-microservice.kysune.me/api/)
 
 # Features
@@ -31,11 +31,12 @@ Advanced authentication microservice.
 
 # TODO
 - [x] Confirmations system
-- [ ] Changing password
+- [ ] Changing password (I plan to base it on the confirmations)
 - [ ] Captcha
 - [ ] IP logging
 - [ ] Requests throttling
 - [ ] Two factor authentication
+- [ ] Improve responding on failed requests.
 
 # License
 [MIT](https://github.com/SzymonLisowiec/auth-microservice/blob/master/LICENSE.md)
