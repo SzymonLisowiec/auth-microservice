@@ -16,5 +16,5 @@ footer: MIT Licensed | Copyright © 2019-present Szymon Lisowiec
 ---
 
 ::: danger
-Auth-Microservice is still development and some elements are subject to change. Currently please do not use it on production.
+Auth-Microservice is further developed and some elements are subject to change. Currently please do not use it on production.
 :::

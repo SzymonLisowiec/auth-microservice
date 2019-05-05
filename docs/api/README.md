@@ -1,9 +1,5 @@
 # AuthMicroservice
 
-::: danger
-Auth Microservice is still development.
-:::
-
 ## Methods
 
 ### run()

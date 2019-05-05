@@ -1,9 +1,5 @@
 # Auth Microservice
 
-::: danger
-Auth Microservice is still development.
-:::
-
 ## Getting Started
 
 ### Install auth-microservice
