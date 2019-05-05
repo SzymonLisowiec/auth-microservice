@@ -11,7 +11,7 @@ class RemoveNotConfirmedUsersJob extends Job {
       const confirmations = await Confirmation.find({
         type: 'registration',
         expiresAt: {
-          $lt: new Date(Date.now() - Config.removeNotConfirmedUsersIn * 86400000),
+          $lt: new Date(Date.now() - Config.removeNotConfirmedUsersIn * 1000),
         },
       }).populate('user').exec();
       

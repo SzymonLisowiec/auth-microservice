@@ -3,8 +3,8 @@ module.exports = {
   /**
    * WebService configuration
    */
-  host: process.env.HOST || '127.0.0.1',
-  port: process.env.PORT || 8080,
+  host: '127.0.0.1',
+  port: 8080,
 
   /**
    * Logging
@@ -19,24 +19,24 @@ module.exports = {
   /**
    * Database configuration
    */
-  databaseHost: process.env.DB_HOST || '127.0.0.1',
-  databasePort: process.env.DB_PORT || 27017,
-  databaseName: process.env.DB_NAME || 'auth-microservice',
-  databaseUser: process.env.DB_USER || null,
-  databasePassword: process.env.DB_PASSWORD || null,
+  databaseHost: '127.0.0.1',
+  databasePort: 27017,
+  databaseName: 'auth-microservice',
+  databaseUser: null,
+  databasePassword: null,
 
   /**
    * Password Hash
    * Currently supports algorithms: argon2, bcrypt
    */
-  passwordHash: process.env.PASSWORD_HASH || 'argon2',
+  passwordHash: 'argon2',
 
   /**
    * Password Requirements
    */
-  passwordMinLength: process.env.PASSWORD_MIN_LENGTH || 6,
-  passwordMaxLength: process.env.PASSWORD_MAX_LENGTH || 128,
-  passwordConfirmation: !!process.env.PASSWORD_CONFIRMATION || true,
+  passwordMinLength: 6,
+  passwordMaxLength: 28,
+  passwordConfirmation: true,
   
   /**
    * BCrypt salt rounds
@@ -50,26 +50,26 @@ module.exports = {
    */
   supportUsernames: true,
   userNameCharacters: 'A-Za-z0-9-_',
-  userNameMinLength: parseInt(process.env.USER_NAME_MIN_LENGTH || 4),
-  userNameMaxLength: parseInt(process.env.USER_NAME_MAX_LENGTH || 16),
+  userNameMinLength: 4,
+  userNameMaxLength: 16,
 
   /**
    * Lookup
    */
-  enableLookupByUsername: !!process.env.LOOKUP_BY_USERNAME || true,
-  enableLookupByEmail: !!process.env.LOOKUP_BY_EMAIL || false,
+  enableLookupByUsername: true,
+  enableLookupByEmail: false,
 
   /**
    * E-Mails normalization with https://www.npmjs.com/package/normalize-email
    * If you enable it, will remove dots (.) and aliases (+foobar) from e-mails.
    */
-  normalizeEmails: !!process.env.NORMALIZE_EMAILS || true,
+  normalizeEmails: false,
 
   /**
    * Tokens
    */
-  supportTokens: (process.env.SUPPORT_TOKENS || 'jsonwebtoken').split(',').map(token => token.trim().toLowerCase()),
-  defaultToken: (process.env.DEFAULT_TOKEN || 'jsonwebtoken'),
+  supportTokens: ['jsonwebtoken'],
+  defaultToken: 'jsonwebtoken',
   
 
   /**
@@ -89,11 +89,11 @@ module.exports = {
   confirmationExpireTime: {
     // in seconds
     default: 3600,
-    registration: 3600,
+    registration: 3600, // TODO: add regex key
   },
   confirmationSecretKey: 'foobar',
   confirmationRefreshDelay: 300, // in seconds
-  requiredRegistrationConfirmationToLogin: true,
-  removeNotConfirmedUsersIn: 10, // days, 0 to disable
+  requiredRegistrationConfirmationToLogin: false,
+  removeNotConfirmedUsersIn: 864000, // days, 0 to disable
 
 };
