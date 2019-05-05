@@ -1,7 +1,13 @@
 ***Still development....***
 ****
 
-# 🔑 Auth-Microservice
+<p align="center">
+  <a href="https://auth-microservice.kysune.me/" target="_blank">
+    <img width="180" src="https://raw.githubusercontent.com/SzymonLisowiec/auth-microservice/master/docs/.vuepress/public/hero.png" alt="logo" />
+  </a>
+</p>
+
+# Auth-Microservice
 Advanced authentication microservice.
 
 # Features
