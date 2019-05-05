@@ -1,5 +1,4 @@
 module.exports = {
-  base: '/auth-microservice-page/',
   title: 'Auth Microservice',
   description: 'Advanced and secure authentication microservice.',
   themeConfig: {
@@ -25,3 +24,4 @@ module.exports = {
     },
   },
 };
+s
